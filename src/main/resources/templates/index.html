@@ -1,0 +1,69 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eMTee Stockkeeper</title>
+
+  <!-- Include Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+  <h3 class="display-3">Overview of stock of food and other materials</h3>
+
+  <div id="contents-main">
+    <div class="lead">
+      <strong>Name of Storage:</strong>
+      <span th:text="${storageName}"></span>
+    </div>
+    <div id="contents">
+      <ul>
+        <li style="list-style-type:none" v-for="item in items">
+          <item-card
+                  v-bind:item="item" v-bind:key="item.id">
+          </item-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script type="text/babel">
+
+  Vue.component('item-card', {
+    props: ['item'],
+    template: `<div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            {{ item.description }}
+                        </h6>
+                        <p class="card-text">
+                            <div>
+                            {{ item.amount }}
+                            </div>
+                        </p>
+                    </div>
+                </div>`
+  });
+
+  var app = new Vue({
+    el: '#contents',
+    data: {
+      items: [
+        {id: "1", description: "Aufbackbrötchen", amount: 4},
+        {id: "2", description: "Erdbeermarmelade", amount: 2}
+      ]
+    }
+  });
+
+</script>
+</body>
+</html>
