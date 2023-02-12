@@ -34,8 +34,10 @@
   </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/babel">
 
   Vue.component('item-card', {
@@ -43,26 +45,43 @@
     template: `<div class="card">
                     <div class="card-body">
                         <h6 class="card-title">
-                            {{ item.description }}
+                            {{ item.id }}
                         </h6>
-                        <p class="card-text">
+                      <p class="card-text">
                             <div>
-                            {{ item.amount }}
+                            {{ item.bestBeforeYear }}
                             </div>
                         </p>
                     </div>
                 </div>`
   });
 
-  var app = new Vue({
-    el: '#contents',
-    data: {
-      items: [
-        {id: "1", description: "Aufbackbrötchen", amount: 4},
-        {id: "2", description: "Erdbeermarmelade", amount: 2}
-      ]
-    }
-  });
+
+
+
+
+
+          new Vue({
+            el: '#contents',
+            data() {
+              return {
+                items: null
+              }
+            },
+
+                  created() {
+    this.console = window.console;
+  },
+            mounted() {
+              axios
+                      .get('http://localhost:8080/item')
+                      .then(response => {
+                        window.console.log(response.data);
+                        this.items = response.data;
+                        this.update();
+                      })
+            }
+          })
 
 </script>
 </body>
