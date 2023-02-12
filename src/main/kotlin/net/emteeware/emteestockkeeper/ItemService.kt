@@ -5,7 +5,7 @@ import java.util.*
 
 @Service
 class ItemService(val db: ItemRepository) {
-    fun findItems(): List<Item> = db.findAll().toList()
+    fun findItems(): List<Item> = db.findAll().toList().map { it.toDto() }.toList()
 
     fun findItemById(id: Int) : List<Item> = db.findById(id).toList()
 

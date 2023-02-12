@@ -15,4 +15,13 @@ class Item (
     val bestBeforeMonth: Int?,
     val bestBeforeDay: Int?,
     val addedOn: Instant = Instant.now(),
-)
+    @Transient
+    var bestBefore: String?
+) {
+        fun toDto() : Item {
+            bestBefore = if (bestBeforeYear != null) "$bestBeforeYear" else "∞"
+            if (bestBeforeMonth != null) bestBefore += "-$bestBeforeMonth"
+            if (bestBeforeDay != null) bestBefore += "-$bestBeforeDay"
+            return this
+        }
+}
