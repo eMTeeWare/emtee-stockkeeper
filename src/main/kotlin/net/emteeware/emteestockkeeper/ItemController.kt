@@ -15,7 +15,7 @@ class ItemController(val service: ItemService) {
     fun index(@PathVariable typeId: UUID): List<Item> = service.findItemByItemTypeId(typeId)
 
     @PostMapping("/item")
-    fun post(@RequestBody itemType: Item) {
-        service.save(itemType)
+    fun post(@RequestBody item: Item) {
+        service.save(item)
     }
 }
