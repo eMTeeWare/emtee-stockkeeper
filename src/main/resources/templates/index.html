@@ -12,6 +12,8 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script type="text/javascript" th:src="@{/webjars/htmx.org/1.8.5/dist/htmx.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/hyperscript.org/0.9.7/dist/_hyperscript.js}"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -22,6 +24,7 @@
       <strong>Name of Storage:</strong>
       <span th:text="${storageName}"></span>
     </div>
+    <div id="htmx-content" hx-get="http://localhost:8080/hx-item" hx-trigger="load">Item</div>
     <div id="contents">
       <ul>
         <li style="list-style-type:none" v-for="item in items">
@@ -35,54 +38,5 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/babel">
-
-  Vue.component('item-card', {
-    props: ['item'],
-    template: `<div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">
-                            {{ item.id }}
-                        </h6>
-                      <p class="card-text">
-                            <div>
-                            {{ item.bestBefore }}
-                            </div>
-                        </p>
-                    </div>
-                </div>`
-  });
-
-
-
-
-
-
-          new Vue({
-            el: '#contents',
-            data() {
-              return {
-                items: null
-              }
-            },
-
-                  created() {
-    this.console = window.console;
-  },
-            mounted() {
-              axios
-                      .get('http://localhost:8080/item')
-                      .then(response => {
-                        window.console.log(response.data);
-                        this.items = response.data;
-                        this.update();
-                      })
-            }
-          })
-
-</script>
 </body>
 </html>

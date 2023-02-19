@@ -34,6 +34,8 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.webjars.npm:htmx.org:1.8.5")
+    implementation("org.webjars.npm:hyperscript.org:0.9.7")
 }
 
 tasks.withType<KotlinCompile> {
